@@ -72,7 +72,7 @@ def from_wrap(turtle):
     newt.move()
     if newt.state(COMMON):
         print("COMMON")
-        turtle = copy(newt)
+        turtle.move()
     else:
         print("Not COMMON")
         turtle = _from_wrap_to_virtual(turtle)

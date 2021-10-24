@@ -35,6 +35,8 @@ class Turtle:
         """Rotate the turtle right (turns * 60) degrees."""
         self.facing = (self.facing + turns) % len(VECTORS)
         self.facing = (self.facing + len(VECTORS)) % len(VECTORS)
+        # TODO test for a VERBOTEN cell to continue turning
+        # TODO test for a VIRTUAL cell for pentagons to continue turning
 
     def left(self, turns=1):
         """Rotate the turtle left 60 degrees."""
@@ -42,8 +44,9 @@ class Turtle:
 
     def move(self):
         """Move the turtle to the hexagon that the turtle faces."""
-        self.x += VECTORS[self.facing][0]
-        self.y += VECTORS[self.facing][1]
+        vx, vy = VECTORS[self.facing]
+        self.x += vx
+        self.y += vy
 
     def get_value(self):
         """Get the value in the attached array."""
@@ -66,3 +69,23 @@ class Turtle:
     def state(self, value):
         """Test the value in the attached array."""
         return self.bitmap[self.x, self.y] == value
+
+    def is_next(self, value):
+        """Test the value in the cell the turtle is facing."""
+        vx, vy = VECTORS[self.facing]
+        return self.bitmap[self.x + vx, self.y + vy] == value
+
+    def is_adjacent(self, value):
+        """Test for the value in the turtle's adjacent cells."""
+        for vx, vy in VECTORS:
+            if self.bitmap[self.x + vx, self.y + vy] == value:
+                return True
+        return False
+
+    def is_east(self):
+        """Test which half of the map the turtle is on in the x-axis."""
+        return self.x > (self.bitmap.shape[0] / 2)
+
+    def is_north(self):
+        """Test which half of the map the turtle is on in the y-axis."""
+        return self.y > (self.bitmap.shape[1] / 2)

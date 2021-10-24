@@ -82,7 +82,7 @@ def add_hex_to_map(ax, bitmap, x, y):
         ax.add_patch(h)
 
 
-def local_map(turtle, horizon=3, add_turtle=True):
+def local_map(turtle, horizon=4, add_turtle=True):
     """
     Plot the hexagons around the turtle using matplotlib.
 
@@ -92,8 +92,8 @@ def local_map(turtle, horizon=3, add_turtle=True):
     bitmap = turtle.bitmap
     fig, ax = plt.subplots()
     x_len, y_len = bitmap.shape
-    x_min, x_max = turtle.x - horizon - 1, turtle.x + horizon + 1
-    y_min, y_max = turtle.y - horizon - 1, turtle.y + horizon + 1
+    x_min, x_max = turtle.x - horizon, turtle.x + horizon
+    y_min, y_max = turtle.y - horizon, turtle.y + horizon
     for x in range(max(0, x_min), min(x_max, x_len)):
         for y in range(max(0, y_min), min(y_max, y_len)):
             add_hex_to_map(ax, bitmap, x, y)
